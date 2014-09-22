@@ -16,3 +16,18 @@ class TestProbability(unittest.TestCase):
         output = experiment.diePmf( 3, 6 )
 
         np.testing.assert_allclose( expectedOutput, output )
+
+    def testSumPmf(self):
+        pmf1 = np.array([
+            0.5       ,  0.5
+            ])
+        pmf2 = np.array([
+            0.5       ,  0.5
+            ])
+        expectedOutput = np.array([
+            0.25      ,  0.5       ,  0.25 
+            ])
+
+        output = experiment.sumPmf( pmf1, pmf2 )
+
+        np.testing.assert_allclose( expectedOutput, output )
