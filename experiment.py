@@ -45,3 +45,31 @@ def constantPmf( value ):
     pmf = zeros( value + 1 )
     pmf[value] = 1.
     return pmf
+
+def generateFill(pmf):
+    fillx = [31.]
+    filly = [0.]
+    for x in range(len(pmf)):
+        if x > 30:
+            fillx.append( x )
+            filly.append( pmf[x] )
+    fill = (fillx, filly)
+    return fill
+
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    pmf = sumPmf(
+        sumPmf(
+            diePmf(4, 6),
+            diePmf(3, 4)
+        ),
+        constantPmf(5)
+    )
+
+    (fillx, filly) = generateFill(pmf)
+
+    plt.plot(pmf)
+    plt.fill(fillx, filly, "b")
+    plt.show()
