@@ -40,3 +40,8 @@ def p_Z( z, p_X, p_Y ):
 
 def cdf( pmf ):
     return pmf.cumsum()
+
+def constantPmf( value ):
+    pmf = zeros( value + 1 )
+    pmf[value] = 1.
+    return pmf

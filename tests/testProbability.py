@@ -43,3 +43,13 @@ class TestProbability(unittest.TestCase):
         output = experiment.cdf( pmf )
 
         np.testing.assert_allclose( expectedOutput, output )
+
+    def testConstantPmf(self):
+        value = 3
+        expectedOutput = np.array([
+            0.        ,  0.        ,  0.        ,  1.
+            ])
+
+        output = experiment.constantPmf( value )
+
+        np.testing.assert_allclose( expectedOutput, output )
