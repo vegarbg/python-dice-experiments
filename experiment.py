@@ -4,7 +4,7 @@
 from numpy.polynomial.polynomial import polypow
 from numpy import ones, zeros
 
-def diePmf( dice, sides ):
+def diePmf(dice, sides):
     # Source: http://www.johndcook.com/blog/2013/04/29/rolling-dice-for-normal-samples-python-version/
      
     # Create an array of polynomial coefficients for
@@ -24,14 +24,14 @@ def diePmf( dice, sides ):
 #    plt.plot(pmf)
 #    plt.show()
 
-def sumPmf( p_X, p_Y ):
+def sumPmf(p_X, p_Y):
     R_Z = len(p_X) + len(p_Y) - 1
     result = zeros( R_Z )
     for z in range( R_Z ):
         result[z] = p_Z( z, p_X, p_Y )
     return result
 
-def p_Z( z, p_X, p_Y ):
+def p_Z(z, p_X, p_Y):
     p_Z = 0
     for y in range( len(p_Y) ):
         if z-y < len(p_X) and z-y >= 0:
@@ -41,17 +41,17 @@ def p_Z( z, p_X, p_Y ):
 def cdf( pmf ):
     return pmf.cumsum()
 
-def constantPmf( value ):
+def constantPmf(value):
     pmf = zeros( value + 1 )
     pmf[value] = 1.
     return pmf
 
-def generateFill(pmf, limit):
+def generateFill(pmf, condition):
     fill_x = []
     fill_y = []
-    for x in range(len(pmf)):
-        if x > limit:
-            if len(fill_x) == 0:
+    for x in range( len(pmf) ):
+        if condition( x ):
+            if len( fill_x ) == 0:
                 fill_x.append( x )
                 fill_y.append( 0. )
             fill_x.append( x )
@@ -64,14 +64,14 @@ if __name__ == "__main__":
 
     pmf = sumPmf(
         sumPmf(
-            diePmf(4, 6),
-            diePmf(3, 4)
+            diePmf( 4, 6 ),
+            diePmf( 3, 4 )
         ),
-        constantPmf(5)
+        constantPmf( 5 )
     )
 
-    (fill_x, fill_y) = generateFill(pmf, 30)
+    (fill_x, fill_y) = generateFill(pmf, lambda x: x >= 30)
 
-    plt.plot(pmf)
-    plt.fill(fill_x, fill_y, "b")
+    plt.plot( pmf )
+    plt.fill( fill_x, fill_y, "b" )
     plt.show()
