@@ -56,6 +56,8 @@ def generateFill(pmf, condition):
                 fill_y.append( 0. )
             fill_x.append( x )
             fill_y.append( pmf[x] )
+    fill_x.append( fill_x[-1] )
+    fill_y.append( 0. )
     return (fill_x, fill_y)
 
 if __name__ == "__main__":
@@ -70,7 +72,7 @@ if __name__ == "__main__":
         constantPmf( 5 )
     )
 
-    (fill_x, fill_y) = generateFill(pmf, lambda x: x >= 30)
+    (fill_x, fill_y) = generateFill(pmf, lambda x: x < 30)
 
     plt.plot( pmf )
     plt.fill( fill_x, fill_y, "b" )
