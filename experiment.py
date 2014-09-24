@@ -46,15 +46,17 @@ def constantPmf( value ):
     pmf[value] = 1.
     return pmf
 
-def generateFill(pmf):
-    fillx = [31.]
-    filly = [0.]
+def generateFill(pmf, limit):
+    fill_x = []
+    fill_y = []
     for x in range(len(pmf)):
-        if x > 30:
-            fillx.append( x )
-            filly.append( pmf[x] )
-    fill = (fillx, filly)
-    return fill
+        if x > limit:
+            if len(fill_x) == 0:
+                fill_x.append( x )
+                fill_y.append( 0. )
+            fill_x.append( x )
+            fill_y.append( pmf[x] )
+    return (fill_x, fill_y)
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
@@ -68,8 +70,8 @@ if __name__ == "__main__":
         constantPmf(5)
     )
 
-    (fillx, filly) = generateFill(pmf)
+    (fill_x, fill_y) = generateFill(pmf, 30)
 
     plt.plot(pmf)
-    plt.fill(fillx, filly, "b")
+    plt.fill(fill_x, fill_y, "b")
     plt.show()
