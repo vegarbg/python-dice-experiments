@@ -31,3 +31,15 @@ class TestProbability(unittest.TestCase):
         output = experiment.sumPmf( pmf1, pmf2 )
 
         np.testing.assert_allclose( expectedOutput, output )
+
+    def testCdf(self):
+        pmf = np.array([
+            0.        ,  0.5       ,  0.5
+            ])
+        expectedOutput = np.array([
+            0.        ,  0.5       ,  1.
+            ])
+
+        output = experiment.cdf( pmf )
+
+        np.testing.assert_allclose( expectedOutput, output )
