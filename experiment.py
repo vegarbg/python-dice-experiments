@@ -34,6 +34,6 @@ def sumPmf( p_X, p_Y ):
 def p_Z( z, p_X, p_Y ):
     p_Z = 0
     for y in range( len(p_Y) ):
-        if z-y < len(p_X):
+        if z-y < len(p_X) and z-y >= 0:
             p_Z += p_X[ z-y ] * p_Y[ y ]
     return p_Z
